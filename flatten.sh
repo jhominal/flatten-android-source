@@ -13,7 +13,7 @@ while read line ;
 do cd $source_dir/$line ;
 git checkout $tag ;
 cd $working_dir ;
-done < $flatten_base_dir/$tag.projects.list
+done < $flatten_base_dir/$tag.projects
 
 mkdir -p $destination_dir;
 
@@ -23,7 +23,7 @@ while read line ;
 do cp -r $source_dir/$line/* $destination_dir ;
 done < $flatten_base_dir/$tag.folders
 
-#Removing files that are incidentally in the same folders but are not Java source files.
+#Remove files that are incidentally in the same folders but are not Java source files.
 rm -rf $destination_dir/Android.mk $destination_dir/jarjar-rules.txt $destination_dir/overview.html $destination_dir/resources
 echo "Done.";
 
