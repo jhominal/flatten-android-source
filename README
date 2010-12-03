@@ -1,0 +1,19 @@
+This is a shell script that takes an Android source tree - as can be downloaded by following the instructions on source.android.com - and transfers and structures some of the java code in a way that it will allow debugging in Eclipse.
+
+Prerequisites:
+ - git
+ - an android source tree as can be downloaded per the instructions of http://source.android.com/source/download.html (it's a rather long download)
+
+In order to use this script, type the following command:
+./flatten.sh release-tag android-source-root destination
+
+The value of 'release-tag' can be one of the following:
+ - korg/cupcake-release
+ - korg/donut-release
+ - korg/eclair-release
+ - korg/froyo-release
+
+The 'destination' directory will be automatically created if it does not exist.
+
+An example of arguments for setting the source in Eclipse for froyo:
+./flatten.sh korg/froyo-release ~/downloads/android-source ~/android-sdk/platforms/android-8/sources

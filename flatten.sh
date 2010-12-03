@@ -7,13 +7,13 @@ destination_dir=$3;
 working_dir=`pwd`;
 flatten_base_dir=`dirname $0`;
 
-read affected_projects_list < $flatten_base_dir/$tag.projects.list;
-
 echo "Checkouting tag '$tag' in the affected projects."
 
-cd $source_dir ;
-repo forall $affected_projects_list -c git checkout $tag ;
+while read line ;
+do cd $source_dir/$line ;
+git checkout $tag ;
 cd $working_dir ;
+done < $flatten_base_dir/$tag.projects.list
 
 mkdir -p $destination_dir;
 
