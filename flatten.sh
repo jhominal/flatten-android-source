@@ -7,12 +7,25 @@ destination_dir=$3;
 working_dir=`pwd`;
 flatten_base_dir=`dirname $0`;
 
-echo "Checkouting tag '$tag' in the affected projects."
+echo "Downloading (if necessary) the affected projects, and checkouting tag '$tag' in them."
 
 while read line ;
-do cd $source_dir/$line ;
-git checkout $tag ;
-cd $working_dir ;
+do 
+  if [ ! -d $source_dir/$line ]
+  then
+    mkdir -p $source_dir/$line ;
+  fi
+  cd $source_dir/$line ;
+  if [ ! -d .git ]
+  then
+    cd ..
+    git clone -o korg git://android.git.kernel.org/platform/$line.git ;
+    cd $working_dir ;
+    cd $source_dir/$line ;
+    git fetch ;
+  fi
+  git checkout $tag ;
+  cd $working_dir ;
 done < $flatten_base_dir/$tag.projects
 
 mkdir -p $destination_dir;
@@ -23,7 +36,10 @@ while read line ;
 do cp -r $source_dir/$line/* $destination_dir ;
 done < $flatten_base_dir/$tag.folders
 
-#Remove files that are incidentally in the same folders but are not Java source files.
-rm -rf $destination_dir/Android.mk $destination_dir/jarjar-rules.txt $destination_dir/overview.html $destination_dir/resources
+#Remove files that don't make sense in a flattened hierarchy.
+rm -f $destination_dir/Android.mk ;
+#Put the "resources" in their rightful package
+cp -r $destination_dir/resources/* $destination_dir ;
+rm -rf $destination_dir/resources
 echo "Done.";
 
