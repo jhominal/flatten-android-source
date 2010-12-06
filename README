@@ -10,7 +10,7 @@ The value of 'release-tag' can be one of the following:
  - korg/donut-release
  - korg/eclair-release
  - korg/froyo-release
- - korg/master (this one is setup mainly to be ready when Gingerbread will come out)
+ - korg/master (this one is setup mainly to be ready when Gingerbread comes out)
 
 The 'android-source-root' directory should point to a platform directory tree (such as one downloaded when you get all the platform folders using `repo init -u git://android.git.kernel.org/platform/manifest.git`) - if you don't have one, this script will automatically create the directories and download the necessary source files. (It will download a little less than 200 MiB of information - if you need multiple releases of the android source, it will be a good idea to keep that folder around until you are at least done with this script)
 
