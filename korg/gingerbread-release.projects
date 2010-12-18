@@ -1,5 +1,4 @@
 external/apache-http
 frameworks/base
 frameworks/ex
-frameworks/policies/base
 libcore
